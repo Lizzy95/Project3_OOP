@@ -6,9 +6,10 @@ int main()
 {
     int ids, clavep, clavec, capaci, i=0, menu;
     int dia, mes, year, id, duracion, j=0;
-    int x=0;
+    int x=0, z=0, y=0, days, months, years, dur, res;
     string nombre, nombreevent;
     bool pro, compu;
+    bool decision=false;
     Sala salas[5];
     Reservacion reservaciones[100];
     Fecha aux;
@@ -74,6 +75,8 @@ int main()
       cout << endl;
       switch(menu){
          case 1:
+             cout << "Lista de salas:" << endl;
+             cout << endl;
              while(salas[x].GetidSala()!=0&&x<5){
                 salas[x].muestra();
                 x++;
@@ -82,7 +85,55 @@ int main()
              x=0;
          break;
          case 2:
-
+             cout << "Lista de reservaciones:" << endl;
+             cout << endl;
+             while(reservaciones[x].GetidSala()!=0&&x<100){
+                decision=true;
+                while(y==0&&z<5){
+                    if(reservaciones[x].GetidSala()==salas[z].GetidSala()){
+                        y=1;
+                        cout << "Nombre de la sala: " << salas[z].GetnomSala() << endl;
+                    }
+                    z++;
+                }
+                y=0;
+                z=0;
+                cout << "Nombre del evento: " << reservaciones[x].GetnombreEvento() << endl;
+                cout << "Fecha de inicio 'dd/mm/aa': " << reservaciones[x].GetfechaInicio().Getdd() << "/" << reservaciones[x].GetfechaInicio().Getmm() << "/" << reservaciones[x].GetfechaInicio().Getaa() << endl;
+                dur=reservaciones[x].Getduracion();
+                days=reservaciones[x].GetfechaInicio().Getdd();
+                months=reservaciones[x].GetfechaInicio().Getmm();
+                years=reservaciones[x].GetfechaInicio().Getaa();
+                res=31-days;
+                while(dur>res){
+                    dur-=res;
+                    days=1;
+                    months++;
+                    if(months==13){
+                        months=1;
+                        years++;
+                    }
+                    res=31-days;
+                }
+                days+=dur;
+                if(days==31){
+                    months++;
+                    if(months==13){
+                        months=1;
+                        years++;
+                    }
+                days=1;
+                }
+                Fecha fe(days,months,years);
+                cout << "Fecha de termino 'dd/mm/aa': " << fe.Getdd() << "/" << fe.Getmm() << "/" << fe.Getaa() << endl;
+                cout << endl;
+                x++;
+             }
+             if(!decision){
+                cout << "No existen reservaciones." << endl;
+                cout << endl;
+             }
+             x=0;
          break;
          case 3:
          break;
