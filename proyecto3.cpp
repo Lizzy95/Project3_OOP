@@ -261,12 +261,75 @@ int main()
              x=0;
          break;
          case 5:
+              cout <<"Numero de personas para la reservacion "<<endl;
+              cin >> capaci;
+              cout << "Fecha de inicio de evento(dd mm aa)"<<endl;
+              cin >> dia >> mes >> year;
+              cout <<"Tiempo de duracion(dias) "<<endl;
+              cin >> duracion;
+              cout << "Requiere proyector( 1)Si, 2)No) "<<endl;
+              cin >> clavep;
+              cout << "Requiere computadora ( 1)Si, 2)No) "<< endl;
+              cin >> clavec;
+              cout << "Nombre del evento"<<endl;
+              cin >> nombreevent;
+              
+              aux2.Setdd(dia);
+              aux2.Setmm(mes);
+              aux2.Setaa(year);
+              
+              
+              dias=dia+duracion;
+              for (int k=0; k<i; k++)
+              {
+                  if((capaci<=salas[k].Getcapacidad())&&(clavep==salas[k].Getproyector())&&(clavec==salas[k].Getcomputadora()))
+                  {
+                      for (int m=0; m<j; m++)
+                      {
+                          if (reservaciones[m].GetidSala()==salas[k].GetidSala())
+                          {
+                              dias= dia+duracion;
+                              if ((aux2==reservaciones[m].GetfechaInicio())&&(dias==reservaciones[m].GetfechaInicio().Getdd())&&(mes==reservaciones[m].GetfechaInicio().Getmm())&&(year==reservaciones[m].GetfechaInicio().Getaa()))
+                              {
+                                  existe=false;
+                              }
+                              else
+                              {
+                                  existe=true;
+                                  cout <<salas[k].GetidSala()<<" "<< salas[k].GetnomSala()<<endl;
+                              }
+                          }
+                      }
+                  }
+                  else
+                      existe =false;
+              }
+              
+              if (existe==true)
+              {
+                  
+                  cout<< " Da el id de la sala que deseas reservar"<< endl;
+                  cin >> id;
+                  reservaciones[j].SetfechaInicio(aux2);
+                  reservaciones[j].SetidSala(id);
+                  reservaciones[j].Setduracion(duracion);
+                  reservaciones[j].SetnombreEvento(nombreevent);
+                  j++;
+              }
          break;
-         case 6: cout << "Gracias por utilizar el sistema. Que tenga un excelente dia." << endl;
+         case 6:
+              cout << "Gracias por utilizar el sistema. Que tenga un excelente dia." << endl;
+              reser1.open("Reserva.txt");
+              for (int f=0; f<j; f++)
+              {
+                  reser1 << reservaciones[f].GetfechaInicio().Getdd()<<" " << reservaciones[f].GetfechaInicio().Getmm()<< " "<< reservaciones[f].GetfechaInicio().Getaa()<< " "<< reservaciones[f].GetidSala() <<" "<< reservaciones[f].Getduracion()<< " "<< reservaciones[f].GetnombreEvento()<< endl;
+              }
          break;
          default: cout << "No se encontro un menu para este comando, intente de nuevo." << endl;
          break;
       }
   }while(menu!=6);
    return 0;
+    sal.close();
+    reser.close();
 }
