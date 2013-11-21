@@ -4,20 +4,21 @@
 
 int main()
 {
-    int ids, clavep, clavec, capaci, i=0, menu;
-    int dia, mes, year, id, duracion, j=0;
+    int ids, clavep, clavec, capaci, longsala=0, menu;
+    int dia, mes, year, id, duracion, longres=0, dias;
     int x=0, z=0, y=0, days, months, years, dur, res;
     string nombre, nombreevent;
     bool pro, compu;
     bool decision=false;
+    bool existe;
     Sala salas[5];
     Reservacion reservaciones[100];
     Fecha fa;
-    Fecha aux;
+    Fecha aux, aux2, aux2F, aux3, aux3F;
     ifstream sal;
     ifstream reser;
-    ofstream sal1;
     ofstream reser1;
+    int arr[5];
 
     sal.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Salas.txt");
     reser.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Reserva.txt");
@@ -39,12 +40,12 @@ int main()
         else
             compu=false;
 
-        salas[i].SetidSala(ids);
-        salas[i].Setproyector(pro);
-        salas[i].Setcomputadora(compu);
-        salas[i].Setcapacidad(capaci);
-        salas[i].SetnomSala(nombre);
-        i++;
+        salas[longsala].SetidSala(ids);
+        salas[longsala].Setproyector(pro);
+        salas[longsala].Setcomputadora(compu);
+        salas[longsala].Setcapacidad(capaci);
+        salas[longsala].SetnomSala(nombre);
+        longsala++;
     }
 
     while(!reser.eof())
@@ -55,11 +56,11 @@ int main()
         aux.Setdd(dia);
         aux.Setmm(mes);
         aux.Setaa(year);
-        reservaciones[j].SetfechaInicio(aux);
-        reservaciones[j].SetidSala(id);
-        reservaciones[j].Setduracion(duracion);
-        reservaciones[j].SetnombreEvento(nombreevent);
-        j++;
+        reservaciones[longres].SetfechaInicio(aux);
+        reservaciones[longres].SetidSala(id);
+        reservaciones[longres].Setduracion(duracion);
+        reservaciones[longres].SetnombreEvento(nombreevent);
+        longres++;
     }
 
     do{
@@ -260,36 +261,88 @@ int main()
              decision=false;
              x=0;
          break;
+
          case 5:
               cout <<"Numero de personas para la reservacion "<<endl;
               cin >> capaci;
-              cout << "Fecha de inicio de evento(dd mm aa)"<<endl;
-              cin >> dia >> mes >> year;
+              cout << "Fecha de inicio de evento:"<<endl;
+              do{
+                cout << "Introduzca el dia: ";
+                cin >> dia;
+                if(dia>=1&&dia<=30)
+                    decision=true;
+                else{
+                    cout << endl;
+                    cout << "El dia introducido es erroneo. Favor de ingresarlo de nuevo." << endl;
+                    cout << endl;
+                }
+             }while(decision==false);
+             decision=false;
+
+             do{
+                cout << "Introduzca el mes: ";
+                cin >> mes;
+                if(mes>=1&&mes<=12)
+                    decision=true;
+                else{
+                    cout << endl;
+                    cout << "El mes introducido es erroneo. Favor de ingresarlo de nuevo." << endl;
+                    cout << endl;
+                }
+             }while(decision==false);
+             decision=false;
+
+             do{
+                cout << "Introduzca el anio: ";
+                cin >> year;
+                if(year>=2014)
+                    decision=true;
+                else{
+                    cout << endl;
+                    cout << "El anio introducido es erroneo. Favor de ingresarlo de nuevo." << endl;
+                    cout << endl;
+                }
+             }while(decision==false);
+             decision=false;
+
               cout <<"Tiempo de duracion(dias) "<<endl;
               cin >> duracion;
+              do{
               cout << "Requiere proyector( 1)Si, 2)No) "<<endl;
               cin >> clavep;
+              if(clavep==0||clavep==1)
+                decision=true;
+              }while(!decision);
+              decision=false;
+              do{
               cout << "Requiere computadora ( 1)Si, 2)No) "<< endl;
               cin >> clavec;
+              if(clavec==0||clavec==1)
+                decision=true;
+              }while(!decision);
+              decision=false;
               cout << "Nombre del evento"<<endl;
               cin >> nombreevent;
-              
+
               aux2.Setdd(dia);
               aux2.Setmm(mes);
               aux2.Setaa(year);
-              
-              
+              aux2F=aux2;
+              aux2F+duracion;
+
               dias=dia+duracion;
-              for (int k=0; k<i; k++)
+              for (int k=0; k<longsala; k++)
               {
                   if((capaci<=salas[k].Getcapacidad())&&(clavep==salas[k].Getproyector())&&(clavec==salas[k].Getcomputadora()))
                   {
-                      for (int m=0; m<j; m++)
+                      for (int m=0; m<longres; m++)
                       {
                           if (reservaciones[m].GetidSala()==salas[k].GetidSala())
                           {
-                              dias= dia+duracion;
-                              if ((aux2==reservaciones[m].GetfechaInicio())&&(dias==reservaciones[m].GetfechaInicio().Getdd())&&(mes==reservaciones[m].GetfechaInicio().Getmm())&&(year==reservaciones[m].GetfechaInicio().Getaa()))
+                              aux3=reservaciones[m].GetfechaInicio();
+                              aux3F=aux3;
+                              aux3F+reservaciones[m].Getduracion();
+                              if ((aux2>=aux3&&aux2<=aux3F) && (aux2F>=aux3&&aux2F<=aux3F) && (aux3>=aux2&&aux3<=aux2F))
                               {
                                   existe=false;
                               }
@@ -297,30 +350,28 @@ int main()
                               {
                                   existe=true;
                                   cout <<salas[k].GetidSala()<<" "<< salas[k].GetnomSala()<<endl;
+                                  cout<< " Da el id de la sala que deseas reservar"<< endl;
+                  cin >> id;
+                  reservaciones[longres].SetfechaInicio(aux2);
+                  reservaciones[longres].SetidSala(id);
+                  reservaciones[longres].Setduracion(duracion);
+                  reservaciones[longres].SetnombreEvento(nombreevent);
+                  longres++;
                               }
                           }
                       }
                   }
                   else
+                      {
+                      cout << "entra" << endl;
                       existe =false;
-              }
-              
-              if (existe==true)
-              {
-                  
-                  cout<< " Da el id de la sala que deseas reservar"<< endl;
-                  cin >> id;
-                  reservaciones[j].SetfechaInicio(aux2);
-                  reservaciones[j].SetidSala(id);
-                  reservaciones[j].Setduracion(duracion);
-                  reservaciones[j].SetnombreEvento(nombreevent);
-                  j++;
+                      }
               }
          break;
          case 6:
               cout << "Gracias por utilizar el sistema. Que tenga un excelente dia." << endl;
               reser1.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Reserva.txt");
-              for (int f=0; f<j; f++)
+              for (int f=0; f<longres; f++)
               {
                   reser1 << reservaciones[f].GetfechaInicio().Getdd()<<" " << reservaciones[f].GetfechaInicio().Getmm()<< " "<< reservaciones[f].GetfechaInicio().Getaa()<< " "<< reservaciones[f].GetidSala() <<" "<< reservaciones[f].Getduracion()<< " "<< reservaciones[f].GetnombreEvento()<< endl;
               }
