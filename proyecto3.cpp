@@ -319,7 +319,7 @@ int main()
          break;
          case 6:
               cout << "Gracias por utilizar el sistema. Que tenga un excelente dia." << endl;
-              reser1.open("Reserva.txt");
+              reser1.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Reserva.txt");
               for (int f=0; f<j; f++)
               {
                   reser1 << reservaciones[f].GetfechaInicio().Getdd()<<" " << reservaciones[f].GetfechaInicio().Getmm()<< " "<< reservaciones[f].GetfechaInicio().Getaa()<< " "<< reservaciones[f].GetidSala() <<" "<< reservaciones[f].Getduracion()<< " "<< reservaciones[f].GetnombreEvento()<< endl;
