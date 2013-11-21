@@ -2,7 +2,7 @@ Project 3
 
 Devs:
 * Alejandro Zamudio Guajardo
-* Elizabeth Morales
+* Norma Elizabeth Morales
 
 Functionality:
 - A reservation system.
