@@ -6,7 +6,7 @@ int main()
 {
     int ids, clavep, clavec, capaci, longsala=0, menu;
     int dia, mes, year, id, duracion, longres=0, dias;
-    int x=0, z=0, y=0, days, months, years, dur, res;
+    int x=0, z=0, y=0, days, months, years, dur, res, contador=0;
     string nombre, nombreevent;
     bool pro, compu;
     bool decision=false;
@@ -18,7 +18,7 @@ int main()
     ifstream sal;
     ifstream reser;
     ofstream reser1;
-    int arr[5];
+    int arr[5]={0};
 
     sal.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Salas.txt");
     reser.open("C:\\Users\\Alejandro Zamudio\\Desktop\\Reserva.txt");
@@ -348,15 +348,11 @@ int main()
                               }
                               else
                               {
+                                  
                                   existe=true;
-                                  cout <<salas[k].GetidSala()<<" "<< salas[k].GetnomSala()<<endl;
-                                  cout<< " Da el id de la sala que deseas reservar"<< endl;
-                  cin >> id;
-                  reservaciones[longres].SetfechaInicio(aux2);
-                  reservaciones[longres].SetidSala(id);
-                  reservaciones[longres].Setduracion(duracion);
-                  reservaciones[longres].SetnombreEvento(nombreevent);
-                  longres++;
+                                  arr[contador]= salas[k].GetidSala();
+                                  contador++;
+                                  
                               }
                           }
                       }
@@ -366,6 +362,21 @@ int main()
                       cout << "entra" << endl;
                       existe =false;
                       }
+              }
+              if ((existe==true)||(arr[0]!=0))
+              {
+                  for (int d=0; d<5; d++)
+                  {
+                      cout<<"El id de la sala es: "<< arr[d]<< endl;
+                  }
+                  
+                  cout<< " Da el id de la sala que deseas reservar"<< endl;
+                  cin >> id;
+                  reservaciones[longres].SetfechaInicio(aux2);
+                  reservaciones[longres].SetidSala(id);
+                  reservaciones[longres].Setduracion(duracion);
+                  reservaciones[longres].SetnombreEvento(nombreevent);
+                  longres++;
               }
          break;
          case 6:
