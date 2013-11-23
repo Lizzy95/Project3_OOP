@@ -64,40 +64,40 @@ Fecha Fecha::operator+(int val){
 }
 bool Fecha::operator>=(Fecha f){
     int d, d1;
-    d=(aa*360)+(mm*30)+dd;
-    d1=(f.aa*360)+(f.mm*30)+f.dd;
+    d=(aa*365)+(mm*30)+dd;
+    d1=(f.aa*365)+(f.mm*30)+f.dd;
     if(d>=d1)
         return true;
     return false;
 }
 bool Fecha::operator<=(Fecha f){
     int d, d1;
-    d=(aa*360)+(mm*30)+dd;
-    d1=(f.aa*360)+(f.mm*30)+f.dd;
+    d=(aa*365)+(mm*30)+dd;
+    d1=(f.aa*365)+(f.mm*30)+f.dd;
     if(d<=d1)
         return true;
     return false;
 }
 bool Fecha::operator>(Fecha f){
     int d, d1;
-    d=(aa*360)+(mm*30)+dd;
-    d1=(f.aa*360)+(f.mm*30)+f.dd;
+    d=(aa*365)+(mm*30)+dd;
+    d1=(f.aa*365)+(f.mm*30)+f.dd;
     if(d>d1)
         return true;
     return false;
 }
 bool Fecha::operator<(Fecha f){
     int d, d1;
-    d=(aa*360)+(mm*30)+dd;
-    d1=(f.aa*360)+(f.mm*30)+f.dd;
+    d=(aa*365)+(mm*30)+dd;
+    d1=(f.aa*365)+(f.mm*30)+f.dd;
     if(d<d1)
         return true;
     return false;
 }
 bool Fecha::operator==(Fecha f){
     int d, d1;
-    d=(aa*360)+(mm*30)+dd;
-    d1=(f.aa*360)+(f.mm*30)+f.dd;
+    d=(aa*365)+(mm*30)+dd;
+    d1=(f.aa*365)+(f.mm*30)+f.dd;
     if(d==d1)
         return true;
     return false;
