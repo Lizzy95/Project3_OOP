@@ -154,7 +154,7 @@ int main()
              }
              }while(x==0);
              x=0;
-             cout << endl;
+              cout << endl;
              for(int i=0;i<100;i++){
                 if(id==reservaciones[i].GetidSala()){
                     cout << "Nombre del evento:" << reservaciones[i].GetnombreEvento() << endl;
@@ -369,7 +369,7 @@ int main()
                         cout << d+1 << ". " << salas[d].GetnomSala() << " ID: " << salas[d].GetidSala() << endl;
                       }
                   }
-                  if(x=0){
+                  if(x==0){
                     cout << endl;
                     cout << "No existen salas disponibles." << endl;
                     cout << endl;
